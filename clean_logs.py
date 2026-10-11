@@ -12,4 +12,16 @@ def celsius_converter(f_temp):
     c_temp = (f_temp - 32) * 5 / 9
     return round(c_temp, 2)
 
-def parse_and_clean
+line = "2026-10-11 12:00 | 25.5 | ACTIVE"
+
+def parse_and_clean(line):
+#    for character in line:
+    cleaned = []
+    parsed = line.split("|") 
+    for x in parsed: 
+        rm_space = x.strip(" ")
+        cleaned.append(rm_space)
+    return cleaned
+if cleaned[2] != "ACTIVE":
+    return None
+
