@@ -35,3 +35,47 @@ def parse_and_clean(line):
 
     return cleaned
 
+
+if __name__ == "__main__":
+    import csv
+    from pathlib import Path
+
+    project_dir = Path(__file__).resolve().parent
+    input_file = project_dir / "input" / "environmental_raw.txt"
+    output_file = project_dir / "output" / "environmental_cleaned.csv"
+
+    output_file.parent.mkdir(parents=True, exist_ok=True)
+    rejected_lines = []
+    accepted_count = 0
+
+    with open(input_file, "r", encoding="utf-8") as file, \
+         open(output_file, "w", newline="", encoding="utf-8") as output:
+        next(file, None)
+
+        writer = csv.writer(output)
+        writer.writerow([
+            "Timestamp", "StationID", "Temp(C)",
+            "Humidity(%)", "Sensor_Status"
+        ])
+
+        for line in file:
+            cleaned_line = parse_and_clean(line)
+
+            if cleaned_line is None:
+                rejected_lines.append(line.strip())
+                continue
+
+            c_temp = celsius_converter(cleaned_line[2])
+
+            if c_temp is None:
+                rejected_lines.append(line.strip())
+                continue
+
+            cleaned_line[2] = c_temp
+            writer.writerow(cleaned_line)
+            accepted_count += 1
+
+    print(f"Valid rows written: {accepted_count}")
+    print(f"Corrupted or invalid lines skipped: {len(rejected_lines)}")
+    print(f"Cleaned file saved to: {output_file}")
+    
