@@ -21,5 +21,3 @@ dependencies:
   - vc14_runtime=14.51.36247=habf1de7_41
   - vcomp14=14.51.36247=habf1de7_41
   - wheel=0.48.0=pyhd8ed1ab_0
-
-prefix: "C:\\Users\\titas\\.local\\share\\mamba\\envs\\hw6_env"
