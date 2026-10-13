@@ -15,13 +15,23 @@ def celsius_converter(f_temp):
 line = "2026-10-11 12:00 | 25.5 | ACTIVE"
 
 def parse_and_clean(line):
-#    for character in line:
     cleaned = []
-    parsed = line.split("|") 
-    for x in parsed: 
-        rm_space = x.strip(" ")
+    parsed = line.split("|")
+
+    for x in parsed:
+        rm_space = x.strip()
+        if rm_space in ("ERROR", "N/A"):
+            rm_space = None
         cleaned.append(rm_space)
+
+    if len(cleaned) != 3:
+        return None
+
+    if any(x is None or x == "" for x in cleaned):
+        return None
+
+    if cleaned[2] != "ACTIVE":
+        return None
+
     return cleaned
-if cleaned[2] != "ACTIVE":
-    return None
 
