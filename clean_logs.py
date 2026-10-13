@@ -24,13 +24,13 @@ def parse_and_clean(line):
             rm_space = None
         cleaned.append(rm_space)
 
-    if len(cleaned) != 3:
+    if len(cleaned) != 5:
         return None
 
     if any(x is None or x == "" for x in cleaned):
         return None
 
-    if cleaned[2] != "ACTIVE":
+    if cleaned[4] != "ACTIVE":
         return None
 
     return cleaned
